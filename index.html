@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="_ajax.js"></script>
+  </head>
+  <body>
+
+    <script>
+      _ajax({
+        type:'GET',
+        url: 'http://some.url',
+        success: function(result) {
+          var r = JSON.parse(result);
+          console.log(r);
+          document.body.innerText += r[0].id;
+        }
+      });
+    
+    </script>
+  </body>
+</html>
