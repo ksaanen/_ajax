@@ -1,15 +1,32 @@
+let _ajax = {}
 
-_ajax = function({type, url, async = true, success}) {
+function requestHandler(req, func) {
+  if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+    return func;
+  }
+}
+
+_ajax.$get = function({url, success}) {
   let request = new XMLHttpRequest();
 
-  request.onreadystatechange  = function(){ // when the request is loaded
-    if (request.readyState == 4 && request.status == 200 && success) {
-      return success(request.responseText);
-    }
-  };
-
-  request.open(type, url, async);
+  request.onreadystatechange = requestHandler(request, function(){
+    success(request.responseText)
+  });
+  
+  request.open('GET', url);
   request.send();
+}
+
+_ajax.$post = function({url, data, success}) {
+  let request = new XMLHttpRequest();
+
+  request.onreadystatechange = requestHandler(request, function(){
+    success(request.responseText)
+  });
+
+  request.open('POST', url);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send(data);
 }
 
 

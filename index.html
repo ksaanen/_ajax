@@ -9,10 +9,24 @@
   </head>
   <body>
 
+    <button id="btnpost">post</button>
+
     <script>
-      _ajax({
-        type:'GET',
-        url: 'http://some.url',
+
+      document.getElementById('btnpost').addEventListener('click', function(){
+        _ajax.$post({
+          url: 'http://www.test.url',
+          data: '{bla:bla}',
+          success: function(result) {
+            var r = JSON.parse(result);
+            console.log(r);
+          }
+        });
+      });
+      
+
+      _ajax.$get({
+        url: 'http://www.test.url',
         success: function(result) {
           var r = JSON.parse(result);
           console.log(r);
